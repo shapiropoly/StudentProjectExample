@@ -22,7 +22,7 @@ public class InMemoryStudentDAO {
 
     public Student findByEmail(String email) {
         return STUDENTS.stream()
-                .filter(element -> element.getEmail().equals(email))
+                .filter(element -> email.equals(element.getEmail()))
                 .findFirst()
                 .orElse(null);
     }
