@@ -1,18 +1,27 @@
 package com.example.students.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Data
-@Builder
+@Entity
+@Table(name = "students")
 public class Student {
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
-    @NonNull
+    @Column(unique = true)
     private String email;
+    @Transient
     private int age;
+
+    public int getAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
 }
